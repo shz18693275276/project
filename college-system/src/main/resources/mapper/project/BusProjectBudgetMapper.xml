@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.BusProjectBudgetMapper">
+    
+    <resultMap type="BusProjectBudget" id="BusProjectBudgetResult">
+        <result property="id"    column="id"    />
+        <result property="projectId"    column="project_id"    />
+        <result property="deviceName"    column="device_name"    />
+        <result property="deviceModel"    column="device_model"    />
+        <result property="devicePrice"    column="device_price"    />
+        <result property="deviceUnit"    column="device_unit"    />
+        <result property="deviceNum"    column="device_num"    />
+        <result property="totlaPrice"    column="totla_price"    />
+        <result property="centralFinancial"    column="central_financial"    />
+        <result property="provincialFinancial"    column="provincial_financial"    />
+        <result property="selfFinancing"    column="self_financing"    />
+    </resultMap>
+
+    <sql id="selectBusProjectBudgetVo">
+        select id, project_id, device_name, device_model, device_price, device_unit, device_num, totla_price, central_financial, provincial_financial, self_financing from bus_project_budget
+    </sql>
+
+    <select id="selectBusProjectBudgetList" parameterType="BusProjectBudget" resultMap="BusProjectBudgetResult">
+        <include refid="selectBusProjectBudgetVo"/>
+        <where>  
+            <if test="projectId != null "> and project_id = #{projectId}</if>
+            <if test="deviceName != null  and deviceName != ''"> and device_name like concat('%', #{deviceName}, '%')</if>
+            <if test="deviceModel != null  and deviceModel != ''"> and device_model = #{deviceModel}</if>
+            <if test="devicePrice != null "> and device_price = #{devicePrice}</if>
+            <if test="deviceUnit != null  and deviceUnit != ''"> and device_unit = #{deviceUnit}</if>
+            <if test="deviceNum != null "> and device_num = #{deviceNum}</if>
+            <if test="totlaPrice != null "> and totla_price = #{totlaPrice}</if>
+            <if test="centralFinancial != null "> and central_financial = #{centralFinancial}</if>
+            <if test="provincialFinancial != null "> and provincial_financial = #{provincialFinancial}</if>
+            <if test="selfFinancing != null "> and self_financing = #{selfFinancing}</if>
+        </where>
+    </select>
+    
+    <select id="selectBusProjectBudgetById" parameterType="Long" resultMap="BusProjectBudgetResult">
+        <include refid="selectBusProjectBudgetVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBusProjectBudget" parameterType="BusProjectBudget" useGeneratedKeys="true" keyProperty="id">
+        insert into bus_project_budget
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">project_id,</if>
+            <if test="deviceName != null">device_name,</if>
+            <if test="deviceModel != null">device_model,</if>
+            <if test="devicePrice != null">device_price,</if>
+            <if test="deviceUnit != null">device_unit,</if>
+            <if test="deviceNum != null">device_num,</if>
+            <if test="totlaPrice != null">totla_price,</if>
+            <if test="centralFinancial != null">central_financial,</if>
+            <if test="provincialFinancial != null">provincial_financial,</if>
+            <if test="selfFinancing != null">self_financing,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">#{projectId},</if>
+            <if test="deviceName != null">#{deviceName},</if>
+            <if test="deviceModel != null">#{deviceModel},</if>
+            <if test="devicePrice != null">#{devicePrice},</if>
+            <if test="deviceUnit != null">#{deviceUnit},</if>
+            <if test="deviceNum != null">#{deviceNum},</if>
+            <if test="totlaPrice != null">#{totlaPrice},</if>
+            <if test="centralFinancial != null">#{centralFinancial},</if>
+            <if test="provincialFinancial != null">#{provincialFinancial},</if>
+            <if test="selfFinancing != null">#{selfFinancing},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBusProjectBudget" parameterType="BusProjectBudget">
+        update bus_project_budget
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="deviceName != null">device_name = #{deviceName},</if>
+            <if test="deviceModel != null">device_model = #{deviceModel},</if>
+            <if test="devicePrice != null">device_price = #{devicePrice},</if>
+            <if test="deviceUnit != null">device_unit = #{deviceUnit},</if>
+            <if test="deviceNum != null">device_num = #{deviceNum},</if>
+            <if test="totlaPrice != null">totla_price = #{totlaPrice},</if>
+            <if test="centralFinancial != null">central_financial = #{centralFinancial},</if>
+            <if test="provincialFinancial != null">provincial_financial = #{provincialFinancial},</if>
+            <if test="selfFinancing != null">self_financing = #{selfFinancing},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBusProjectBudgetById" parameterType="Long">
+        delete from bus_project_budget where id = #{id}
+    </delete>
+
+    <delete id="deleteBusProjectBudgetByIds" parameterType="String">
+        delete from bus_project_budget where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectProjectBudgetByProjectId" parameterType="Long" resultMap="BusProjectBudgetResult">
+        <include refid="selectBusProjectBudgetVo"/>
+        <where>
+            <if test="_parameter != null "> and project_id = #{projectId}</if>
+        </where>
+    </select>
+    
+</mapper>

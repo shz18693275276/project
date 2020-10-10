@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.BusProjectReportMapper">
+    
+    <resultMap type="BusProjectReport" id="BusProjectReportResult">
+        <result property="id"    column="id"    />
+        <result property="projectId"    column="project_id"    />
+        <result property="basicInformation"    column="basic_information"    />
+        <result property="feasibilityAndNecessity"    column="feasibility_and_necessity"    />
+        <result property="objectiveAndContents"    column="objective_and_contents"    />
+        <result property="budgetAndUsage"    column="budget_and_usage"    />
+        <result property="organizeAndSchedule"    column="organize_and_schedule"    />
+        <result property="benefitAnalyze"    column="benefit_analyze"    />
+        <result property="safeguardMeasures"    column="safeguard_measures"    />
+        <result property="other"    column="other"    />
+    </resultMap>
+
+    <sql id="selectBusProjectReportVo">
+        select id, project_id, basic_information, feasibility_and_necessity, objective_and_contents, budget_and_usage, organize_and_schedule, benefit_analyze, safeguard_measures, other from bus_project_report
+    </sql>
+
+    <select id="selectBusProjectReportList" parameterType="BusProjectReport" resultMap="BusProjectReportResult">
+        <include refid="selectBusProjectReportVo"/>
+        <where>  
+            <if test="projectId != null "> and project_id = #{projectId}</if>
+            <if test="basicInformation != null  and basicInformation != ''"> and basic_information = #{basicInformation}</if>
+            <if test="feasibilityAndNecessity != null  and feasibilityAndNecessity != ''"> and feasibility_and_necessity = #{feasibilityAndNecessity}</if>
+            <if test="objectiveAndContents != null  and objectiveAndContents != ''"> and objective_and_contents = #{objectiveAndContents}</if>
+            <if test="budgetAndUsage != null  and budgetAndUsage != ''"> and budget_and_usage = #{budgetAndUsage}</if>
+            <if test="organizeAndSchedule != null  and organizeAndSchedule != ''"> and organize_and_schedule = #{organizeAndSchedule}</if>
+            <if test="benefitAnalyze != null  and benefitAnalyze != ''"> and benefit_analyze = #{benefitAnalyze}</if>
+            <if test="safeguardMeasures != null  and safeguardMeasures != ''"> and safeguard_measures = #{safeguardMeasures}</if>
+            <if test="other != null  and other != ''"> and other = #{other}</if>
+        </where>
+    </select>
+    
+    <select id="selectBusProjectReportById" parameterType="Long" resultMap="BusProjectReportResult">
+        <include refid="selectBusProjectReportVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="getReportProjectId" parameterType="Long" resultMap="BusProjectReportResult">
+        <include refid="selectBusProjectReportVo"/>
+        where project_id = #{projectId}
+    </select>
+
+    <insert id="insertBusProjectReport" parameterType="BusProjectReport" useGeneratedKeys="true" keyProperty="id">
+        insert into bus_project_report
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">project_id,</if>
+            <if test="basicInformation != null">basic_information,</if>
+            <if test="feasibilityAndNecessity != null">feasibility_and_necessity,</if>
+            <if test="objectiveAndContents != null">objective_and_contents,</if>
+            <if test="budgetAndUsage != null">budget_and_usage,</if>
+            <if test="organizeAndSchedule != null">organize_and_schedule,</if>
+            <if test="benefitAnalyze != null">benefit_analyze,</if>
+            <if test="safeguardMeasures != null">safeguard_measures,</if>
+            <if test="other != null">other,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">#{projectId},</if>
+            <if test="basicInformation != null">#{basicInformation},</if>
+            <if test="feasibilityAndNecessity != null">#{feasibilityAndNecessity},</if>
+            <if test="objectiveAndContents != null">#{objectiveAndContents},</if>
+            <if test="budgetAndUsage != null">#{budgetAndUsage},</if>
+            <if test="organizeAndSchedule != null">#{organizeAndSchedule},</if>
+            <if test="benefitAnalyze != null">#{benefitAnalyze},</if>
+            <if test="safeguardMeasures != null">#{safeguardMeasures},</if>
+            <if test="other != null">#{other},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBusProjectReport" parameterType="BusProjectReport">
+        update bus_project_report
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="basicInformation != null">basic_information = #{basicInformation},</if>
+            <if test="feasibilityAndNecessity != null">feasibility_and_necessity = #{feasibilityAndNecessity},</if>
+            <if test="objectiveAndContents != null">objective_and_contents = #{objectiveAndContents},</if>
+            <if test="budgetAndUsage != null">budget_and_usage = #{budgetAndUsage},</if>
+            <if test="organizeAndSchedule != null">organize_and_schedule = #{organizeAndSchedule},</if>
+            <if test="benefitAnalyze != null">benefit_analyze = #{benefitAnalyze},</if>
+            <if test="safeguardMeasures != null">safeguard_measures = #{safeguardMeasures},</if>
+            <if test="other != null">other = #{other},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBusProjectReportById" parameterType="Long">
+        delete from bus_project_report where id = #{id}
+    </delete>
+
+    <delete id="deleteBusProjectReportByIds" parameterType="String">
+        delete from bus_project_report where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <select id="selectProjectReportByProjectId" parameterType="Long" resultMap="BusProjectReportResult">
+        <include refid="selectBusProjectReportVo"/>
+        <where>
+            <if test="_parameter != null "> and project_id = #{projectId}</if>
+        </where>
+    </select>
+
+    
+</mapper>

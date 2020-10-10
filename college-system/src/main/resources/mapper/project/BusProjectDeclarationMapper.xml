@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.BusProjectDeclarationMapper">
+    
+    <resultMap type="BusProjectDeclaration" id="BusProjectDeclarationResult">
+        <result property="id"    column="id"    />
+        <result property="projectId"    column="project_id"    />
+        <result property="schoolName"    column="school_name"    />
+        <result property="schoolType"    column="school_type"    />
+        <result property="schoolAddress"    column="school_address"    />
+        <result property="postalCode"    column="postal_code"    />
+        <result property="schoolStudent"    column="school_student"    />
+        <result property="schoolStudentSpecialty"    column="school_student_specialty"    />
+        <result property="schoolStudentMaster"    column="school_student_master"    />
+        <result property="schoolStudentDoctor"    column="school_student_doctor"    />
+        <result property="schoolTeacher"    column="school_teacher"    />
+        <result property="schoolTeacherRegular"    column="school_teacher_regular"    />
+        <result property="schoolTeacherProfessor"    column="school_teacher_professor"    />
+        <result property="schoolTeacherReProfessor"    column="school_teacher_re_professor"    />
+        <result property="countryStudyCourse"    column="country_study_course"    />
+        <result property="provincialStudyCourse"    column="provincial_study_course"    />
+        <result property="countryResearchBase"    column="country_research_base"    />
+        <result property="provincialResearchBase"    column="provincial_research_base"    />
+        <result property="existingFixedAssets"    column="existing_fixed_assets"    />
+        <result property="buildingValue"    column="building_value"    />
+        <result property="buildingArea"    column="building_area"    />
+        <result property="equipment40wOver"    column="equipment_40w_over"    />
+        <result property="equipmentSpecializedValue"    column="equipment_specialized_value"    />
+        <result property="projectType"    column="project_type"    />
+        <result property="applicationAmount"    column="application_amount"    />
+        <result property="centralFinanceAmount"    column="central_finance_amount"    />
+        <result property="localFundingAmount"    column="local_funding_amount"    />
+        <result property="projectLeader"    column="project_leader"    />
+        <result property="contactNumber"    column="contact_number"    />
+        <result property="projectIntroduction"    column="project_Introduction"    />
+    </resultMap>
+
+    <sql id="selectBusProjectDeclarationVo">
+        select id, project_id, school_name, school_type, school_address, postal_code, school_student, school_student_specialty, school_student_master, school_student_doctor, school_teacher, school_teacher_regular, school_teacher_professor, school_teacher_re_professor, country_study_course, provincial_study_course, country_research_base, provincial_research_base, existing_fixed_assets, building_value, building_area, equipment_40w_over, equipment_specialized_value, project_type, application_amount, central_finance_amount, local_funding_amount, project_leader, contact_number, project_Introduction from bus_project_declaration
+    </sql>
+
+    <select id="selectBusProjectDeclarationList" parameterType="BusProjectDeclaration" resultMap="BusProjectDeclarationResult">
+        <include refid="selectBusProjectDeclarationVo"/>
+        <where>  
+            <if test="projectId != null "> and project_id = #{projectId}</if>
+            <if test="schoolName != null  and schoolName != ''"> and school_name like concat('%', #{schoolName}, '%')</if>
+            <if test="schoolType != null "> and school_type = #{schoolType}</if>
+            <if test="schoolAddress != null  and schoolAddress != ''"> and school_address = #{schoolAddress}</if>
+            <if test="postalCode != null  and postalCode != ''"> and postal_code = #{postalCode}</if>
+            <if test="schoolStudent != null "> and school_student = #{schoolStudent}</if>
+            <if test="schoolStudentSpecialty != null "> and school_student_specialty = #{schoolStudentSpecialty}</if>
+            <if test="schoolStudentMaster != null "> and school_student_master = #{schoolStudentMaster}</if>
+            <if test="schoolStudentDoctor != null "> and school_student_doctor = #{schoolStudentDoctor}</if>
+            <if test="schoolTeacher != null "> and school_teacher = #{schoolTeacher}</if>
+            <if test="schoolTeacherRegular != null "> and school_teacher_regular = #{schoolTeacherRegular}</if>
+            <if test="schoolTeacherProfessor != null "> and school_teacher_professor = #{schoolTeacherProfessor}</if>
+            <if test="schoolTeacherReProfessor != null "> and school_teacher_re_professor = #{schoolTeacherReProfessor}</if>
+            <if test="countryStudyCourse != null "> and country_study_course = #{countryStudyCourse}</if>
+            <if test="provincialStudyCourse != null "> and provincial_study_course = #{provincialStudyCourse}</if>
+            <if test="countryResearchBase != null "> and country_research_base = #{countryResearchBase}</if>
+            <if test="provincialResearchBase != null "> and provincial_research_base = #{provincialResearchBase}</if>
+            <if test="existingFixedAssets != null "> and existing_fixed_assets = #{existingFixedAssets}</if>
+            <if test="buildingValue != null "> and building_value = #{buildingValue}</if>
+            <if test="buildingArea != null "> and building_area = #{buildingArea}</if>
+            <if test="equipment40wOver != null "> and equipment_40w_over = #{equipment40wOver}</if>
+            <if test="equipmentSpecializedValue != null "> and equipment_specialized_value = #{equipmentSpecializedValue}</if>
+            <if test="projectType != null "> and project_type = #{projectType}</if>
+            <if test="applicationAmount != null "> and application_amount = #{applicationAmount}</if>
+            <if test="centralFinanceAmount != null "> and central_finance_amount = #{centralFinanceAmount}</if>
+            <if test="localFundingAmount != null "> and local_funding_amount = #{localFundingAmount}</if>
+            <if test="projectLeader != null  and projectLeader != ''"> and project_leader = #{projectLeader}</if>
+            <if test="contactNumber != null  and contactNumber != ''"> and contact_number = #{contactNumber}</if>
+            <if test="projectIntroduction != null  and projectIntroduction != ''"> and project_Introduction = #{projectIntroduction}</if>
+        </where>
+    </select>
+    
+    <select id="selectBusProjectDeclarationById" parameterType="Long" resultMap="BusProjectDeclarationResult">
+        <include refid="selectBusProjectDeclarationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBusProjectDeclaration" parameterType="BusProjectDeclaration" useGeneratedKeys="true" keyProperty="id">
+        insert into bus_project_declaration
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">project_id,</if>
+            <if test="schoolName != null">school_name,</if>
+            <if test="schoolType != null">school_type,</if>
+            <if test="schoolAddress != null">school_address,</if>
+            <if test="postalCode != null">postal_code,</if>
+            <if test="schoolStudent != null">school_student,</if>
+            <if test="schoolStudentSpecialty != null">school_student_specialty,</if>
+            <if test="schoolStudentMaster != null">school_student_master,</if>
+            <if test="schoolStudentDoctor != null">school_student_doctor,</if>
+            <if test="schoolTeacher != null">school_teacher,</if>
+            <if test="schoolTeacherRegular != null">school_teacher_regular,</if>
+            <if test="schoolTeacherProfessor != null">school_teacher_professor,</if>
+            <if test="schoolTeacherReProfessor != null">school_teacher_re_professor,</if>
+            <if test="countryStudyCourse != null">country_study_course,</if>
+            <if test="provincialStudyCourse != null">provincial_study_course,</if>
+            <if test="countryResearchBase != null">country_research_base,</if>
+            <if test="provincialResearchBase != null">provincial_research_base,</if>
+            <if test="existingFixedAssets != null">existing_fixed_assets,</if>
+            <if test="buildingValue != null">building_value,</if>
+            <if test="buildingArea != null">building_area,</if>
+            <if test="equipment40wOver != null">equipment_40w_over,</if>
+            <if test="equipmentSpecializedValue != null">equipment_specialized_value,</if>
+            <if test="projectType != null">project_type,</if>
+            <if test="applicationAmount != null">application_amount,</if>
+            <if test="centralFinanceAmount != null">central_finance_amount,</if>
+            <if test="localFundingAmount != null">local_funding_amount,</if>
+            <if test="projectLeader != null">project_leader,</if>
+            <if test="contactNumber != null">contact_number,</if>
+            <if test="projectIntroduction != null">project_Introduction,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">#{projectId},</if>
+            <if test="schoolName != null">#{schoolName},</if>
+            <if test="schoolType != null">#{schoolType},</if>
+            <if test="schoolAddress != null">#{schoolAddress},</if>
+            <if test="postalCode != null">#{postalCode},</if>
+            <if test="schoolStudent != null">#{schoolStudent},</if>
+            <if test="schoolStudentSpecialty != null">#{schoolStudentSpecialty},</if>
+            <if test="schoolStudentMaster != null">#{schoolStudentMaster},</if>
+            <if test="schoolStudentDoctor != null">#{schoolStudentDoctor},</if>
+            <if test="schoolTeacher != null">#{schoolTeacher},</if>
+            <if test="schoolTeacherRegular != null">#{schoolTeacherRegular},</if>
+            <if test="schoolTeacherProfessor != null">#{schoolTeacherProfessor},</if>
+            <if test="schoolTeacherReProfessor != null">#{schoolTeacherReProfessor},</if>
+            <if test="countryStudyCourse != null">#{countryStudyCourse},</if>
+            <if test="provincialStudyCourse != null">#{provincialStudyCourse},</if>
+            <if test="countryResearchBase != null">#{countryResearchBase},</if>
+            <if test="provincialResearchBase != null">#{provincialResearchBase},</if>
+            <if test="existingFixedAssets != null">#{existingFixedAssets},</if>
+            <if test="buildingValue != null">#{buildingValue},</if>
+            <if test="buildingArea != null">#{buildingArea},</if>
+            <if test="equipment40wOver != null">#{equipment40wOver},</if>
+            <if test="equipmentSpecializedValue != null">#{equipmentSpecializedValue},</if>
+            <if test="projectType != null">#{projectType},</if>
+            <if test="applicationAmount != null">#{applicationAmount},</if>
+            <if test="centralFinanceAmount != null">#{centralFinanceAmount},</if>
+            <if test="localFundingAmount != null">#{localFundingAmount},</if>
+            <if test="projectLeader != null">#{projectLeader},</if>
+            <if test="contactNumber != null">#{contactNumber},</if>
+            <if test="projectIntroduction != null">#{projectIntroduction},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBusProjectDeclaration" parameterType="BusProjectDeclaration">
+        update bus_project_declaration
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="schoolName != null">school_name = #{schoolName},</if>
+            <if test="schoolType != null">school_type = #{schoolType},</if>
+            <if test="schoolAddress != null">school_address = #{schoolAddress},</if>
+            <if test="postalCode != null">postal_code = #{postalCode},</if>
+            <if test="schoolStudent != null">school_student = #{schoolStudent},</if>
+            <if test="schoolStudentSpecialty != null">school_student_specialty = #{schoolStudentSpecialty},</if>
+            <if test="schoolStudentMaster != null">school_student_master = #{schoolStudentMaster},</if>
+            <if test="schoolStudentDoctor != null">school_student_doctor = #{schoolStudentDoctor},</if>
+            <if test="schoolTeacher != null">school_teacher = #{schoolTeacher},</if>
+            <if test="schoolTeacherRegular != null">school_teacher_regular = #{schoolTeacherRegular},</if>
+            <if test="schoolTeacherProfessor != null">school_teacher_professor = #{schoolTeacherProfessor},</if>
+            <if test="schoolTeacherReProfessor != null">school_teacher_re_professor = #{schoolTeacherReProfessor},</if>
+            <if test="countryStudyCourse != null">country_study_course = #{countryStudyCourse},</if>
+            <if test="provincialStudyCourse != null">provincial_study_course = #{provincialStudyCourse},</if>
+            <if test="countryResearchBase != null">country_research_base = #{countryResearchBase},</if>
+            <if test="provincialResearchBase != null">provincial_research_base = #{provincialResearchBase},</if>
+            <if test="existingFixedAssets != null">existing_fixed_assets = #{existingFixedAssets},</if>
+            <if test="buildingValue != null">building_value = #{buildingValue},</if>
+            <if test="buildingArea != null">building_area = #{buildingArea},</if>
+            <if test="equipment40wOver != null">equipment_40w_over = #{equipment40wOver},</if>
+            <if test="equipmentSpecializedValue != null">equipment_specialized_value = #{equipmentSpecializedValue},</if>
+            <if test="projectType != null">project_type = #{projectType},</if>
+            <if test="applicationAmount != null">application_amount = #{applicationAmount},</if>
+            <if test="centralFinanceAmount != null">central_finance_amount = #{centralFinanceAmount},</if>
+            <if test="localFundingAmount != null">local_funding_amount = #{localFundingAmount},</if>
+            <if test="projectLeader != null">project_leader = #{projectLeader},</if>
+            <if test="contactNumber != null">contact_number = #{contactNumber},</if>
+            <if test="projectIntroduction != null">project_Introduction = #{projectIntroduction},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBusProjectDeclarationById" parameterType="Long">
+        delete from bus_project_declaration where id = #{id}
+    </delete>
+
+    <delete id="deleteBusProjectDeclarationByIds" parameterType="String">
+        delete from bus_project_declaration where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectProjectDeclarationByProjectId" parameterType="Long" resultMap="BusProjectDeclarationResult">
+        <include refid="selectBusProjectDeclarationVo"/>
+        <where>
+            <if test="_parameter != null "> and project_id = #{projectId}</if>
+        </where>
+    </select>
+
+</mapper>

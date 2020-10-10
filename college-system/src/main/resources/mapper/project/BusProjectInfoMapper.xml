@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.BusProjectInfoMapper">
+    
+    <resultMap type="BusProjectInfo" id="BusProjectInfoResult">
+        <result property="id"    column="id"    />
+        <result property="projectProvince"    column="project_province"    />
+        <result property="projectName"    column="project_name"    />
+        <result property="projectAlias"    column="project_alias"    />
+        <result property="projectLeader"    column="project_leader"    />
+        <result property="applyingSchool"    column="applying_school"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="urgentLevel"    column="urgent_level"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectBusProjectInfoVo">
+        select id, project_province, project_name, project_alias, project_leader, applying_school, create_time, urgent_level, status from bus_project_info
+    </sql>
+
+    <select id="selectBusProjectInfoList" parameterType="BusProjectInfo" resultMap="BusProjectInfoResult">
+        <include refid="selectBusProjectInfoVo"/>
+        <where>  
+            <if test="projectProvince != null  and projectProvince != ''"> and project_province = #{projectProvince}</if>
+            <if test="projectName != null  and projectName != ''"> and project_name like concat('%', #{projectName}, '%')</if>
+            <if test="projectAlias != null  and projectAlias != ''"> and project_alias = #{projectAlias}</if>
+            <if test="projectLeader != null "> and project_leader = #{projectLeader}</if>
+            <if test="applyingSchool != null "> and applying_school = #{applyingSchool}</if>
+            <if test="urgentLevel != null "> and urgent_level = #{urgentLevel}</if>
+            <if test="statusTeam == 0 "> and (status = 0 or status = 10 or status = 12) </if>
+            <if test="statusTeam == 1 "> and (status = 11 or status = 20 or status = 22 or status = 32 or status = 42) </if>
+            <if test="statusTeam == 2 "> and (status = 21 or status = 30) </if>
+            <if test="statusTeam == 3 "> and (status = 31 or status = 40) </if>
+            <if test="statusTeam == 4 "> and status = 31 and (urgent_level = 2 or urgent_level = 3) </if>
+        </where>
+    </select>
+    
+    <select id="selectBusProjectInfoById" parameterType="Long" resultMap="BusProjectInfoResult">
+        <include refid="selectBusProjectInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBusProjectInfo" parameterType="BusProjectInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into bus_project_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectProvince != null">project_province,</if>
+            <if test="projectName != null">project_name,</if>
+            <if test="projectAlias != null">project_alias,</if>
+            <if test="projectLeader != null">project_leader,</if>
+            <if test="applyingSchool != null">applying_school,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="urgentLevel != null">urgent_level,</if>
+            <if test="status != null">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectProvince != null">#{projectProvince},</if>
+            <if test="projectName != null">#{projectName},</if>
+            <if test="projectAlias != null">#{projectAlias},</if>
+            <if test="projectLeader != null">#{projectLeader},</if>
+            <if test="applyingSchool != null">#{applyingSchool},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="urgentLevel != null">#{urgentLevel},</if>
+            <if test="status != null">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBusProjectInfo" parameterType="BusProjectInfo">
+        update bus_project_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="projectProvince != null">project_province = #{projectProvince},</if>
+            <if test="projectName != null">project_name = #{projectName},</if>
+            <if test="projectAlias != null">project_alias = #{projectAlias},</if>
+            <if test="projectLeader != null">project_leader = #{projectLeader},</if>
+            <if test="applyingSchool != null">applying_school = #{applyingSchool},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="urgentLevel != null">urgent_level = #{urgentLevel},</if>
+            <if test="status != null">status = #{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBusProjectInfoById" parameterType="Long">
+        delete from bus_project_info where id = #{id}
+    </delete>
+
+    <delete id="deleteBusProjectInfoByIds" parameterType="String">
+        delete from bus_project_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="updateProjectStatus">
+        update bus_project_info set status = #{status} where id = #{id}
+    </update>
+
+</mapper>

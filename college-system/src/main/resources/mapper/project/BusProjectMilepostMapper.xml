@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.project.mapper.BusProjectMilepostMapper">
+    
+    <resultMap type="BusProjectMilepost" id="BusProjectMilepostResult">
+        <result property="id"    column="id"    />
+        <result property="projectId"    column="project_id"    />
+        <result property="operateContent"    column="operate_content"    />
+        <result property="operatePerson"    column="operate_person"    />
+        <result property="operateReason"    column="operate_reason"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectBusProjectMilepostVo">
+        select id, project_id, operate_content, operate_person, operate_reason, create_time from bus_project_milepost
+    </sql>
+
+    <select id="selectBusProjectMilepostList" parameterType="BusProjectMilepost" resultMap="BusProjectMilepostResult">
+        <include refid="selectBusProjectMilepostVo"/>
+        <where>  
+            <if test="projectId != null "> and project_id = #{projectId}</if>
+            <if test="operateContent != null  and operateContent != ''"> and operate_content = #{operateContent}</if>
+            <if test="operatePerson != null  and operatePerson != ''"> and operate_person = #{operatePerson}</if>
+            <if test="operateReason != null  and operateReason != ''"> and operate_reason = #{operateReason}</if>
+        </where>
+    </select>
+    
+    <select id="selectBusProjectMilepostById" parameterType="Long" resultMap="BusProjectMilepostResult">
+        <include refid="selectBusProjectMilepostVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBusProjectMilepost" parameterType="BusProjectMilepost" useGeneratedKeys="true" keyProperty="id">
+        insert into bus_project_milepost
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">project_id,</if>
+            <if test="operateContent != null">operate_content,</if>
+            <if test="operatePerson != null">operate_person,</if>
+            <if test="operateReason != null">operate_reason,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectId != null">#{projectId},</if>
+            <if test="operateContent != null">#{operateContent},</if>
+            <if test="operatePerson != null">#{operatePerson},</if>
+            <if test="operateReason != null">#{operateReason},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBusProjectMilepost" parameterType="BusProjectMilepost">
+        update bus_project_milepost
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="projectId != null">project_id = #{projectId},</if>
+            <if test="operateContent != null">operate_content = #{operateContent},</if>
+            <if test="operatePerson != null">operate_person = #{operatePerson},</if>
+            <if test="operateReason != null">operate_reason = #{operateReason},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBusProjectMilepostById" parameterType="Long">
+        delete from bus_project_milepost where id = #{id}
+    </delete>
+
+    <delete id="deleteBusProjectMilepostByIds" parameterType="String">
+        delete from bus_project_milepost where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectBusProjectMilepostByProjectId" parameterType="Long" resultMap="BusProjectMilepostResult">
+        <include refid="selectBusProjectMilepostVo"/>
+        <where>
+            <if test="_parameter != null "> and project_id = #{projectId}</if>
+        </where>
+    </select>
+
+
+</mapper>
